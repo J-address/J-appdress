@@ -3,7 +3,16 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
     {
-        ignores: ['node_modules/', 'dist/', 'build/'],
+        ignores: [
+            'node_modules/',
+            'dist/',
+            'build/',
+            '.next/',
+            '**/.next/**',
+            'my-app/.next/**',
+            'my-app/.turbo/**',
+            'my-app/node_modules/**',
+        ],
     },
     ...tseslint.configs.recommended,
     {
