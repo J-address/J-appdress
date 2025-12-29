@@ -3,6 +3,7 @@ import { UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import type { JwtPayload, AuthUser } from '../types/auth.types';
 
 // By default PassportStrategy(Strategy) registers the strategy with the name 'jwt'
 @Injectable()
@@ -15,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   // This method is called automatically by Passport to validate the JWT payload
-  async validate(payload: any) {
+  async validate(payload: JwtPayload): Promise<AuthUser> {
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
     });

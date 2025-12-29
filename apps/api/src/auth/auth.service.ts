@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
@@ -15,7 +19,7 @@ export class AuthService {
   async register(dto: RegisterDto) {
     const existingUser = await this.prisma.user.findUnique({
       where: { email: dto.email },
-    })
+    });
     if (existingUser) {
       throw new ConflictException('User already exists');
     }
@@ -34,7 +38,7 @@ export class AuthService {
     // Generate JWT
     const token = this.generateToken(user.id, user.email);
 
-    return { 
+    return {
       access_token: token,
       user: { id: user.id, email: user.email },
     };
@@ -43,7 +47,7 @@ export class AuthService {
   async login(dto: LoginDto) {
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email },
-    })
+    });
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
@@ -58,13 +62,13 @@ export class AuthService {
     // Generate JWT
     const token = this.generateToken(user.id, user.email);
 
-    return { 
+    return {
       access_token: token,
       user: { id: user.id, email: user.email },
     };
   }
 
-  private generateToken(userId: string, email: string) : string {
+  private generateToken(userId: string, email: string): string {
     const payload = { sub: userId, email };
     return this.jwtService.sign(payload);
   }

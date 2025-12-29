@@ -6,7 +6,7 @@ import 'dotenv/config';
 async function bootstrap() {
   //  Create the NestJS application
   const app = await NestFactory.create(AppModule);
-  
+
   //  Apply global validation to all routes
   app.useGlobalPipes(
     new ValidationPipe({
@@ -16,6 +16,8 @@ async function bootstrap() {
   );
 
   await app.listen(process.env.PORT ?? 3001);
-  console.log(`🚀 API is running on: http://localhost:${process.env.PORT ?? 3001}`);
+  console.log(
+    `🚀 API is running on: http://localhost:${process.env.PORT ?? 3001}`,
+  );
 }
 void bootstrap();
