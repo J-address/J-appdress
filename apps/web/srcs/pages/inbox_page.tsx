@@ -100,7 +100,7 @@ export default function InboxPage() {
               廃棄
             </button>
           </div>
-          <span className='whitespace-nowrap text-sm font-semibold text-white/85'>Selected: {selectedIds.size}</span>
+          <span className='whitespace-nowrap text-sm font-semibold text-white/85'>選択済み: {selectedIds.size}</span>
         </div>
 
         <PhotoGallery
@@ -132,14 +132,14 @@ export default function InboxPage() {
         <div className='fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-white/10 backdrop-blur py-3 px-4'>
           <div className='mx-auto flex w-full max-w-6xl items-center justify-center gap-6 text-white'>
             <span className='text-sm text-white/85'>
-              {selectedIds.size} {selectedIds.size === 1 ? 'photo selected' : 'photos selected'}
+              {selectedIds.size}件選択中
             </span>
             <button
               type='button'
               disabled
               className='rounded-full bg-white px-8 py-2 text-sm font-semibold text-[#0C1B3D] opacity-80 cursor-not-allowed shadow'
             >
-              Next
+              次へ
             </button>
           </div>
         </div>
