@@ -17,7 +17,7 @@ A clear and concise description of what the bug is.
 
 ## Bug Details
 
-**Actual behaviour**  
+**Actual Behavior**  
 What is happening now?
 ->
 
