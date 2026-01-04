@@ -30,7 +30,7 @@ What is happening now?
 
 ---
 
-## Expected Behaviour
+## Expected Behavior
 
 **How should it work?**  
 
