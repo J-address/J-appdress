@@ -1,4 +1,4 @@
-# J-Address Web Application
+# J-address Web Application
 
 Japanese mail forwarding service - Receive mail at a Japanese address and manage it online.
 
