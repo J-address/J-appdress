@@ -172,7 +172,7 @@ export function PhotoGallery({
         <div className='flex items-center gap-2'>
           {selectionModeValue && showSelectedBadge && (
             <span className='rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/85'>
-              Selected: {selectedCount}
+              選択済み: {selectedCount}
             </span>
           )}
           {selectionModeValue && (
@@ -184,7 +184,7 @@ export function PhotoGallery({
                 selectAll();
               }}
             >
-              Select all
+              全て選択
             </button>
           )}
         </div>
@@ -253,7 +253,7 @@ export function PhotoGallery({
                     className='absolute right-3 top-3 z-10 rounded-full bg-red-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-red-700'
                     onClick={closePreview}
                   >
-                    Close
+                    閉じる
                   </button>
                   <button
                     type='button'

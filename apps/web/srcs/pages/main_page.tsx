@@ -11,13 +11,13 @@ const gradientStyle = {
 };
 
 const cards: Card[] = [
-  { title: 'Profile' },
+  { title: 'プロフィール' },
   { title: '郵便物', href: '/inbox' },
-  { title: 'Shipment request' },
-  { title: 'Settings' },
-  { title: 'Price list' },
-  { title: 'FAQ' },
-  { title: 'Contact us', href: '/contact' },
+  { title: '発送リクエスト' },
+  { title: '設定' },
+  { title: '料金表' },
+  { title: 'よくある質問' },
+  { title: 'お問い合わせ', href: '/contact' },
 ];
 
 export default function MainPage() {
@@ -45,7 +45,7 @@ export default function MainPage() {
       }
       weeks.push(week);
     }
-    const monthLabel = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const monthLabel = now.toLocaleDateString('ja-JP', { month: 'long', year: 'numeric' });
     return { weeks, monthLabel, today: now.getDate() };
   }, []);
 
@@ -68,7 +68,7 @@ export default function MainPage() {
         <header className='flex flex-col gap-4 rounded-3xl bg-white/10 p-8 shadow-xl backdrop-blur'>
           <div className='flex flex-wrap items-start justify-between gap-4'>
             <div>
-              <p className='text-sm uppercase tracking-[0.2em] text-white/70'>Welcome back</p>
+              <p className='text-sm uppercase tracking-[0.2em] text-white/70'>お帰りなさい</p>
               <h1 className='text-3xl font-bold sm:text-4xl'>Kiki</h1>
               <p className='mt-2 max-w-2xl text-base text-white/80'>
               </p>
@@ -92,7 +92,7 @@ export default function MainPage() {
           <div className='rounded-3xl bg-white p-6 text-[#0C1B3D] shadow-2xl lg:col-span-2'>
             <div className='flex flex-wrap items-center justify-between gap-4'>
               <div>
-                <h2 className='text-2xl font-bold text-[#0C1B3D]'>News</h2>
+                <h2 className='text-2xl font-bold text-[#0C1B3D]'>お知らせ</h2>
               </div>
             </div>
             <div className='mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
@@ -105,7 +105,7 @@ export default function MainPage() {
                 </div>
               </div>
               <div className='mt-4 grid grid-cols-7 gap-1 text-center text-xs font-semibold text-white/80'>
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                {['日', '月', '火', '水', '木', '金', '土'].map((day) => (
                   <span key={day}>{day}</span>
                 ))}
               </div>
@@ -131,7 +131,7 @@ export default function MainPage() {
                 )}
               </div>
               <div className='mt-8 space-y-2'>
-                <p className='text-sm text-white/80'>Current time in Japan</p>
+                <p className='text-sm text-white/80'>日本の現在時刻</p>
                 <p className='text-2xl font-semibold text-white/80'>{jstTime || '—'}</p>
               </div>
             </div>
