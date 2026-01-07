@@ -77,10 +77,10 @@ export default function InboxPage() {
                 <button
                   type='button'
                   className='flex h-10 w-10 items-center justify-center rounded-full bg-white/1 text-black transition hover:-translate-y-2 hover:bg-transparent focus:outline-none focus-visible:ring-4 focus-visible:ring-white/70'
-                  aria-label='Flying bird'
+                  aria-label='転送を選択'
                   onClick={() => activateSelection('forward', actionStyles.forward)}
                 >
-                  <svg viewBox='0 0 256 128' className='h-19 w-14' aria-hidden='true'>
+                  <svg viewBox='0 0 256 128' className='h-20 w-14' aria-hidden='true'>
                     <path
                       d='M10 86 C46 22 102 14 128 56 C156 60 206 18 246 86'
                       fill='none'
@@ -103,7 +103,7 @@ export default function InboxPage() {
                 <button
                   type='button'
                   className='flex h-10 w-10 items-center justify-center rounded-full bg-white/1 text-black transition hover:-translate-y-2 hover:bg-transparent focus:outline-none focus-visible:ring-4 focus-visible:ring-white/70'
-                  aria-label='Flying bird two'
+                  aria-label='スキャンを選択'
                   onClick={() => activateSelection('scan', actionStyles.scan)}
                 >
                   <svg viewBox='0 0 256 128' className='h-10 w-14' aria-hidden='true'>
@@ -118,7 +118,7 @@ export default function InboxPage() {
                   </svg>
                 </button>
                 <span
-                  className={`pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 text-xs font-semibold text-black transition ${
+                  className={`pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 text-[11px] font-semibold text-black transition ${
                     activeAction === 'scan' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                   }`}
                 >
@@ -129,7 +129,7 @@ export default function InboxPage() {
                 <button
                   type='button'
                   className='flex h-10 w-10 items-center justify-center rounded-full bg-white/1 text-black transition hover:-translate-y-2 hover:bg-transparent focus:outline-none focus-visible:ring-4 focus-visible:ring-white/70'
-                  aria-label='Flying bird three'
+                  aria-label='破棄を選択'
                   onClick={() => activateSelection('discard', actionStyles.discard)}
                 >
                   <svg viewBox='0 0 256 128' className='h-10 w-14' aria-hidden='true'>
@@ -153,8 +153,8 @@ export default function InboxPage() {
               </div>
             </div>
             <div className='flex items-baseline gap-20'>
-              <span className='text-xs font-Yomogi text-black sm:text-xl'>e転居期限: 26.04.09</span>
-              <span className='cursor-pointer text-xl font-Yomogi text-black transition hover:underline hover:decoration-black hover:decoration-2 hover:underline-offset-4 hover:drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)] sm:text-2xl'>
+              <span className='text-xs font-yomogi text-black sm:text-xl'>e転居期限: 26.04.09</span>
+              <span className='cursor-pointer text-xl font-yomogi text-black transition hover:underline hover:decoration-black hover:decoration-2 hover:underline-offset-4 hover:drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)] sm:text-2xl'>
                 大谷 優光
               </span>
             </div>
@@ -166,7 +166,7 @@ export default function InboxPage() {
         <div className='mx-auto w-[70%]'>
           <div className='mb-2 flex items-end justify-between gap-4'>
             <h2 className='text-2xl font-semibold text-white'>お荷物</h2>
-            <span className='text-sm font-semibold text-white/80'>写真数: 6</span>
+            <span className='text-sm font-semibold text-white/80'>写真数: {packagesGallery.length}</span>
           </div>
           <PhotoGallery
             title='お荷物'
@@ -186,7 +186,7 @@ export default function InboxPage() {
         <div className='mx-auto w-[70%]'>
           <div className='mb-2 flex items-end justify-between gap-4'>
             <h2 className='text-2xl font-semibold text-white'>お手紙</h2>
-            <span className='text-sm font-semibold text-white/80'>写真数: 7</span>
+            <span className='text-sm font-semibold text-white/80'>写真数: {lettersGallery.length}</span>
           </div>
           <PhotoGallery
             title='お手紙'
