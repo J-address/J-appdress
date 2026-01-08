@@ -52,6 +52,7 @@ export function GallerySection({
         <span className='text-sm font-semibold text-white/80'>写真数: {photos.length}</span>
       </div>
       <PhotoGallery
+        title={title}
         photos={photos}
         gridClassName={gridClassName}
         pairWithNextOnSelect={pairWithNextOnSelect}
