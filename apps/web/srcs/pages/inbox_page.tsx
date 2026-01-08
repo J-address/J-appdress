@@ -150,7 +150,7 @@ export default function InboxPage() {
         </div>
         <header className='relative left-1/2 right-1/2 w-screen -translate-x-1/2 rounded-none bg-transparent px-6 py-8'>
           <div className='-mt-2 flex flex-wrap items-center justify-between gap-3'>
-            <div className='flex items-center gap-20'>
+            <div className='flex items-center gap-6 sm:gap-10 lg:gap-20'>
               {actionButtons.map((action) => (
                 <ActionButton
                   key={action.actionKey}
@@ -164,7 +164,7 @@ export default function InboxPage() {
                 />
               ))}
             </div>
-            <div className='flex items-baseline gap-20'>
+            <div className='flex items-baseline gap-6 sm:gap-10 lg:gap-20'>
               <span className='text-xs font-yomogi text-black sm:text-xl'>e転居期限: 26.04.09</span>
               <span className='cursor-pointer text-xl font-yomogi text-black transition hover:underline hover:decoration-black hover:decoration-2 hover:underline-offset-4 hover:drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)] sm:text-2xl'>
                 大谷 優光
@@ -175,7 +175,7 @@ export default function InboxPage() {
       </div>
       <div className='relative mx-auto flex min-h-screen max-w-6xl flex-col gap-8 px-6 pb-12 pt-52'>
 
-        <div className='mx-auto w-[70%]'>
+        <div className='mx-auto w-full max-w-5xl'>
           <div className='mb-2 flex items-end justify-between gap-4'>
             <h2 className='text-2xl font-semibold text-white'>お荷物</h2>
             <span className='text-sm font-semibold text-white/80'>写真数: {packagesGallery.length}</span>
@@ -195,7 +195,7 @@ export default function InboxPage() {
           />
         </div>
 
-        <div className='mx-auto w-[70%]'>
+        <div className='mx-auto w-full max-w-5xl'>
           <div className='mb-2 flex items-end justify-between gap-4'>
             <h2 className='text-2xl font-semibold text-white'>お手紙</h2>
             <span className='text-sm font-semibold text-white/80'>写真数: {lettersGallery.length}</span>
