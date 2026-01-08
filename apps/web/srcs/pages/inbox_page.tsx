@@ -4,17 +4,71 @@ import { useState } from 'react';
 
 import { PhotoGallery } from '@/srcs/components/photo_gallery';
 
+type ActionKey = 'forward' | 'scan' | 'discard';
+
+type ActionButtonProps = {
+  actionKey: ActionKey;
+  label: string;
+  ariaLabel: string;
+  svgClassName: string;
+  labelSizeClassName: string;
+  isActive: boolean;
+  onClick: () => void;
+};
+
+const labelShadowClassName = 'drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)]';
+
 const gradientStyle = {
   backgroundImage:
     'linear-gradient(180deg, #d8daddff 3%, #c0dfffff 16%, #6aa2f0ff 36%, #0155c3ff 90%)',
 };
+
+function ActionButton({
+  actionKey,
+  label,
+  ariaLabel,
+  svgClassName,
+  labelSizeClassName,
+  isActive,
+  onClick,
+}: ActionButtonProps) {
+  return (
+    <button
+      type='button'
+      className='group relative flex flex-col items-center text-black focus:outline-none focus-visible:ring-4 focus-visible:ring-white/70'
+      aria-label={ariaLabel}
+      onClick={onClick}
+      data-action={actionKey}
+    >
+      <span className='flex h-10 w-10 items-center justify-center rounded-full bg-white/1 transition group-hover:-translate-y-2 group-hover:bg-transparent'>
+        <svg viewBox='0 0 256 128' className={svgClassName} aria-hidden='true'>
+          <path
+            d='M10 86 C46 22 102 14 128 56 C156 60 206 18 246 86'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='20'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          />
+        </svg>
+      </span>
+      <span
+        className={`absolute left-1/2 top-full mt-2 -translate-x-1/2 font-semibold text-black transition opacity-100 group-hover:-translate-y-2 ${labelSizeClassName} ${
+          isActive ? labelShadowClassName : ''
+        }`}
+      >
+        {label}
+      </span>
+    </button>
+  );
+}
 
 export default function InboxPage() {
   const [selectionMode, setSelectionMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const defaultHighlight = 'ring-4 ring-white drop-shadow-[0_0_20px_rgba(255,255,255,0.35)]';
   const [highlightClass, setHighlightClass] = useState(defaultHighlight);
-  const [activeAction, setActiveAction] = useState<'forward' | 'scan' | 'discard' | null>(null);
+  const [activeAction, setActiveAction] = useState<ActionKey | null>(null);
 
   const packagesGallery = [
     { id: 'pkg-1', src: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80', alt: 'Parcel at warehouse' },
@@ -41,7 +95,7 @@ export default function InboxPage() {
     discard: 'ring-4 ring-red-500 drop-shadow-[0_0_18px_rgba(239,68,68,0.35)]',
   };
 
-  const activateSelection = (actionKey: 'forward' | 'scan' | 'discard', style: string) => {
+  const activateSelection = (actionKey: ActionKey, style: string) => {
     if (activeAction === actionKey) {
       setSelectionMode(false);
       setSelectedIds(new Set());
@@ -53,6 +107,30 @@ export default function InboxPage() {
     setHighlightClass(style);
     setActiveAction(actionKey);
   };
+
+  const actionButtons = [
+    {
+      actionKey: 'forward',
+      label: '転送',
+      ariaLabel: '転送を選択',
+      svgClassName: 'h-20 w-14',
+      labelSizeClassName: 'text-xs',
+    },
+    {
+      actionKey: 'scan',
+      label: 'スキャン',
+      ariaLabel: 'スキャンを選択',
+      svgClassName: 'h-10 w-14',
+      labelSizeClassName: 'text-[11px]',
+    },
+    {
+      actionKey: 'discard',
+      label: '破棄',
+      ariaLabel: '破棄を選択',
+      svgClassName: 'h-10 w-14',
+      labelSizeClassName: 'text-xs',
+    },
+  ] as const;
 
   return (
     <div className='relative min-h-screen overflow-hidden text-white' style={gradientStyle}>
@@ -73,84 +151,18 @@ export default function InboxPage() {
         <header className='relative left-1/2 right-1/2 w-screen -translate-x-1/2 rounded-none bg-transparent px-6 py-8'>
           <div className='-mt-2 flex flex-wrap items-center justify-between gap-3'>
             <div className='flex items-center gap-20'>
-              <div className='relative group'>
-                <button
-                  type='button'
-                  className='flex h-10 w-10 items-center justify-center rounded-full bg-white/1 text-black transition hover:-translate-y-2 hover:bg-transparent focus:outline-none focus-visible:ring-4 focus-visible:ring-white/70'
-                  aria-label='転送を選択'
-                  onClick={() => activateSelection('forward', actionStyles.forward)}
-                >
-                  <svg viewBox='0 0 256 128' className='h-20 w-14' aria-hidden='true'>
-                    <path
-                      d='M10 86 C46 22 102 14 128 56 C156 60 206 18 246 86'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='20'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </button>
-                <span
-                  className={`pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 text-xs font-semibold text-black transition ${
-                    activeAction === 'forward' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                  }`}
-                >
-                  転送
-                </span>
-              </div>
-              <div className='relative group'>
-                <button
-                  type='button'
-                  className='flex h-10 w-10 items-center justify-center rounded-full bg-white/1 text-black transition hover:-translate-y-2 hover:bg-transparent focus:outline-none focus-visible:ring-4 focus-visible:ring-white/70'
-                  aria-label='スキャンを選択'
-                  onClick={() => activateSelection('scan', actionStyles.scan)}
-                >
-                  <svg viewBox='0 0 256 128' className='h-10 w-14' aria-hidden='true'>
-                    <path
-                      d='M10 86 C46 22 102 14 128 56 C156 60 206 18 246 86'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='20'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </button>
-                <span
-                  className={`pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 text-[11px] font-semibold text-black transition ${
-                    activeAction === 'scan' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                  }`}
-                >
-                  スキャン
-                </span>
-              </div>
-              <div className='relative group'>
-                <button
-                  type='button'
-                  className='flex h-10 w-10 items-center justify-center rounded-full bg-white/1 text-black transition hover:-translate-y-2 hover:bg-transparent focus:outline-none focus-visible:ring-4 focus-visible:ring-white/70'
-                  aria-label='破棄を選択'
-                  onClick={() => activateSelection('discard', actionStyles.discard)}
-                >
-                  <svg viewBox='0 0 256 128' className='h-10 w-14' aria-hidden='true'>
-                    <path
-                      d='M10 86 C46 22 102 14 128 56 C156 60 206 18 246 86'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='20'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </button>
-                <span
-                  className={`pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 text-xs font-semibold text-black transition ${
-                    activeAction === 'discard' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                  }`}
-                >
-                  破棄
-                </span>
-              </div>
+              {actionButtons.map((action) => (
+                <ActionButton
+                  key={action.actionKey}
+                  actionKey={action.actionKey}
+                  label={action.label}
+                  ariaLabel={action.ariaLabel}
+                  svgClassName={action.svgClassName}
+                  labelSizeClassName={action.labelSizeClassName}
+                  isActive={activeAction === action.actionKey}
+                  onClick={() => activateSelection(action.actionKey, actionStyles[action.actionKey])}
+                />
+              ))}
             </div>
             <div className='flex items-baseline gap-20'>
               <span className='text-xs font-yomogi text-black sm:text-xl'>e転居期限: 26.04.09</span>
